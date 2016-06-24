@@ -1,7 +1,7 @@
 ---
 layout: post
-title: ÄãºÃ£¬ÊÀ½ç£¡- Runic
-date: 2016Äê6ÔÂ25ÈÕ
+title: ä½ å¥½ï¼Œä¸–ç•Œï¼- Runic
+date: 2016å¹´6æœˆ25æ—¥
 categories: Runic
 ---
 Hello Word!
