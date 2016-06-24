@@ -1,0 +1,7 @@
+---
+layout: post
+title: 你好，世界！- Runic
+date: 2016年6月25日
+categories: Runic
+---
+Hello Word!
