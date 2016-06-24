@@ -1,0 +1,6 @@
+---
+layout: post
+title: 你好，世界！- Runic
+categories: Runic
+---
+Hello Word!
