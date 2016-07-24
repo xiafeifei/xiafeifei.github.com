@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   	<head>
-  		<title>Strata by HTML5 UP</title>
+  		<title>Runic 的码农博客</title>
   		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
   		<meta name="description" content="" />
   		<meta name="keywords" content="" />
@@ -21,10 +21,10 @@
 	<body id="top">
 
       <header id="header">
-          <a href="#" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
-          <h1><strong>I am <a href="/">Strata</a></strong>, a super simple<br />
-          responsive site template freebie<br />
-          crafted by <a href="http://html5up.net">HTML5 UP</a>.</h1>
+          <a href="#" class="image avatar"><img src="http://q1.qlogo.cn/g?b=qq&nk={{ site.qq }}&s=100" data-src="/images/avatar.jpg" alt="" /></a>
+          <h1><strong>我是<a href="http://wpa.qq.com/msgrd?v=3&uin={{ site.qq }}&site=qq&menu=yes">{{ site.nickname }}</a></strong>, 欢迎来到我的博客<br />
+          这里记录我码农路上的成长历程。<br />
+          博客基于<a href="http://html5up.net">HTML5 UP</a>创建.</h1>
       </header>
 
 
@@ -38,38 +38,6 @@
               <li>
                 <a href="https://github.com/{{ site.github_username }}" class="icon fa-github">
                   <span class="label">GitHub</span>
-                </a>
-              </li>
-              {% endif %}
-
-              {% if site.twitter_username %}
-              <li>
-                <a href="https://twitter.com/{{ site.twitter_username }}" class="icon fa-twitter">
-                  <span class="label">Twitter</span>
-                </a>
-              </li>
-              {% endif %}
-
-              {% if site.linkedin_username %}
-              <li>
-                <a href="https://linkedin.com/in/{{ site.linkedin_username }}" class="icon fa-linkedin">
-                  <span class="label">LinkedIn</span>
-                </a>
-              </li>
-              {% endif %}
-
-              {% if site.google_plus_username %}
-              <li>
-                <a href="https://plus.google.com/{{ site.google_plus_username }}" class="icon fa-google-plus">
-                  <span class="label">Google+</span>
-                </a>
-              </li>
-              {% endif %}
-
-              {% if site.facebook_username %}
-              <li>
-                <a href="https://www.facebook.com/{{ site.facebook_username }}" class="icon fa-facebook">
-                  <span class="label">Facebook</span>
                 </a>
               </li>
               {% endif %}
@@ -91,9 +59,8 @@
               {% endif %}
             </ul>
             <ul class="copyright">
-                <li>&copy; Untitled</li>
+                <li>&copy; Runic</li>
                 <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-                <li>Demo Images: <a href="https://unsplash.com/">Unsplash</a></li>
                 <li>Jekyll Template: <a href="http://cloudcannon.com">Cloud Cannon</a></li>
             </ul>
         </footer>
