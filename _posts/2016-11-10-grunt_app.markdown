@@ -1,0 +1,181 @@
+---
+layout: post
+title: 高效开发APP（一）：环境搭建 NodeJS + Grunt + tomd 
+categories: Runic
+---
+### 1.安装 nodejs
+### 2.安装 grunt ->  npm install -g grunt-cli
+### 3.配置工作环境  npm init
+ > ./package.json
+```
+{
+    "name": "app",
+    "author": "By.Runic - Email: demo2013@vip.qq.com",
+    "version": "1.0.0",
+    "description": "Runic 2016/11/04",
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-contrib-jshint": "~0.10.0",
+        "grunt-contrib-concat": "^0.5.1",
+        "grunt-contrib-uglify": "^0.9.2",
+        "grunt-css": ">0.0.0"
+    }
+}
+```
+### 3. cmd 进入项目 node 配置依赖库：
+```
+npm install grunt --save-dev
+```
+### 4. Grunt 配置
+> ./Gruntfile.js
+```
+module.exports = function(grunt) {
+    'use strict';
+    grunt.initConfig({
+        // 从package.json 文件读入项目配置信息，并存入pkg 属性内。这样就可以让我们访问到package.json文件中列出的属性了
+        pkg: grunt.file.readJSON('package.json'),
+        concat: {
+            dist: {
+                // 将要被合并的 JS 文件
+                src: [ './app/app.js', './app/js/*.js' ],
+                // 合并后的JS文件的存放位置
+                dest: './js/<%= pkg.name %>.js'
+            },
+            css: {
+                // 将要被合并的 CSS 文件
+                src: [ './app/css/*.css' ],
+                // 合并后的 CSS 文件的存放位置
+                dest: './css/<%= pkg.name %>.css'
+            }
+        },
+        uglify: {
+            dist:{
+                files: {
+                    './js/<%= pkg.name %>.min.js': [ '<%= concat.dist.dest %>' ]
+                }
+            }
+        },
+        cssmin: {
+            build: {
+                // 将要被合并的 CSS 文件
+                src: [ '<%= concat.css.dest %>' ],
+                // 合并后的 CSS 文件的存放位置
+                dest: './css/<%= pkg.name %>.min.css'
+            }
+        }
+    });
+    grunt.loadNpmTasks("grunt-contrib-concat"); // 合并 JS
+    grunt.loadNpmTasks("grunt-contrib-uglify"); // 压缩 JS
+    grunt.loadNpmTasks('grunt-css'); // 压缩 CSS
+    grunt.registerTask("default", ["concat", "uglify", "cssmin"]);
+};
+```
+### 6. 合并js 、 执行 grunt
+### 7.添加预编译 模版 
+```
+npm install -g tmodjs
+```
+> github项目地址： https://github.com/aui/tmodjs
+
+### 8.让 TmodJS 作为 Grunt 的插件使用
+```
+npm install grunt-tmod --save-dev
+```
+> github项目地址：https://github.com/Jsonzhang/grunt-tmod
+
+### 9.最终 package.json 文件
+```
+{
+    "name": "app",
+    "author": "By.Runic - Email: demo2013@vip.qq.com",
+    "version": "1.0.0",
+    "description": "Runic 2016/11/04",
+    "devDependencies": {
+        "tmodjs": "1.0.4",
+        "grunt": "^0.4.5",
+        "grunt-contrib-concat": "^0.5.1",
+        "grunt-contrib-jshint": "~0.10.0",
+        "grunt-contrib-uglify": "^0.9.2",
+        "grunt-css": ">0.0.0",
+        "grunt-tmod": "^0.2.10"
+    }
+}
+```
+### 10.最终 Gruntfile.js
+```
+module.exports = function(grunt) {
+    'use strict';
+    grunt.initConfig({
+        // 从package.json 文件读入项目配置信息，并存入pkg 属性内。这样就可以让我们访问到package.json文件中列出的属性了
+        pkg: grunt.file.readJSON('package.json'),
+        concat: {
+            dist: {
+                // 将要被合并的 JS 文件
+                src: [ './app/app.js', './app/js/*.js' ],
+                // 合并后的JS文件的存放位置
+                dest: './js/<%= pkg.name %>.js'
+            },
+            css: {
+                // 将要被合并的 CSS 文件
+                src: [ './app/css/*.css' ],
+                // 合并后的 CSS 文件的存放位置
+                dest: './css/<%= pkg.name %>.css'
+            }
+        },
+        uglify: {
+            dist:{
+                files: {
+                    './js/<%= pkg.name %>.min.js': [ '<%= concat.dist.dest %>' ]
+                }
+            }
+        },
+        cssmin: {
+            build: {
+                // 将要被合并的 CSS 文件
+                src: [ '<%= concat.css.dest %>' ],
+                // 合并后的 CSS 文件的存放位置
+                dest: './css/<%= pkg.name %>.min.css'
+            }
+        },
+        tmod: {
+            template: {
+                // 模版文件
+                src: './tpl/*.html',
+                // 输出路径。
+                dest: './js/template.js',
+                options: {
+                    // 指定模板的根目录，以便缩短编译后的模板id访问路径。
+                    base: './tpl',
+                    // 模板使用的编码（暂时只支持 utf-8）
+                    charset: "utf-8",
+                    // 定义模板采用哪种语法。可选：simple、native
+                    syntax: "simple",
+                    // 自定义辅助方法路径
+                    helpers: "./app/artTemplate.helper.js",
+                    // 是否过滤 XSS。如果后台给出的数据已经进行了 XSS 过滤，就可以关闭模板的过滤以提升模板渲染效率
+                    escape: true,
+                    // 是否压缩 HTML 多余空白字符
+                    compress: true,
+                    // 输出的模块类型，可选：default、cmd、amd、commonjs
+                    type: "default",
+                    // 设置输出的运行时名称
+                    runtime: "template.min.js",
+                    // 是否合并模板（仅针对于 default 类型的模块）
+                    combo: true,
+                    // 是否输出为压缩的格式
+                    minify: true,
+                    // 是否开启编译缓存
+                    cache: false,
+                    // 是否打印日志
+                    verbose: true
+                } 
+            }
+        }
+    });
+    grunt.loadNpmTasks("grunt-contrib-concat"); // 合并 JS
+    grunt.loadNpmTasks("grunt-contrib-uglify"); // 压缩 JS
+    grunt.loadNpmTasks('grunt-css'); // 压缩 CSS
+    grunt.loadNpmTasks('grunt-tmod'); // 预编译 模版
+    grunt.registerTask("default", ["concat", "uglify", "cssmin", "tmod"]);
+};
+```
