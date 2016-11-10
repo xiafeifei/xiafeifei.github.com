@@ -1,12 +1,17 @@
 ---
 layout: post
-title: ¸ßĞ§¿ª·¢APP£¨Ò»£©£º»·¾³´î½¨ NodeJS + Grunt + tomd 
+title: é«˜æ•ˆå¼€å‘APPï¼ˆä¸€ï¼‰ï¼šç¯å¢ƒæ­å»º NodeJS + Grunt + tomd 
 categories: Runic
 ---
-### 1.°²×° nodejs
-### 2.°²×° grunt ->  npm install -g grunt-cli
-### 3.ÅäÖÃ¹¤×÷»·¾³  npm init
+
+### 1.å®‰è£… nodejs
+
+### 2.å®‰è£… grunt ->  npm install -g grunt-cli
+
+### 3.é…ç½®å·¥ä½œç¯å¢ƒ  npm init
+
  > ./package.json
+ 
 ```
 {
     "name": "app",
@@ -22,29 +27,34 @@ categories: Runic
     }
 }
 ```
-### 3. cmd ½øÈëÏîÄ¿ node ÅäÖÃÒÀÀµ¿â£º
+
+### 3. cmd è¿›å…¥é¡¹ç›® node é…ç½®ä¾èµ–åº“ï¼š
+
 ```
 npm install grunt --save-dev
 ```
-### 4. Grunt ÅäÖÃ
+
+### 4. Grunt é…ç½®
+
 > ./Gruntfile.js
+
 ```
 module.exports = function(grunt) {
     'use strict';
     grunt.initConfig({
-        // ´Ópackage.json ÎÄ¼ş¶ÁÈëÏîÄ¿ÅäÖÃĞÅÏ¢£¬²¢´æÈëpkg ÊôĞÔÄÚ¡£ÕâÑù¾Í¿ÉÒÔÈÃÎÒÃÇ·ÃÎÊµ½package.jsonÎÄ¼şÖĞÁĞ³öµÄÊôĞÔÁË
+        // ä»package.json æ–‡ä»¶è¯»å…¥é¡¹ç›®é…ç½®ä¿¡æ¯ï¼Œå¹¶å­˜å…¥pkg å±æ€§å†…ã€‚è¿™æ ·å°±å¯ä»¥è®©æˆ‘ä»¬è®¿é—®åˆ°package.jsonæ–‡ä»¶ä¸­åˆ—å‡ºçš„å±æ€§äº†
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             dist: {
-                // ½«Òª±»ºÏ²¢µÄ JS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ JS æ–‡ä»¶
                 src: [ './app/app.js', './app/js/*.js' ],
-                // ºÏ²¢ºóµÄJSÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„JSæ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './js/<%= pkg.name %>.js'
             },
             css: {
-                // ½«Òª±»ºÏ²¢µÄ CSS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ CSS æ–‡ä»¶
                 src: [ './app/css/*.css' ],
-                // ºÏ²¢ºóµÄ CSS ÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„ CSS æ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './css/<%= pkg.name %>.css'
             }
         },
@@ -57,33 +67,40 @@ module.exports = function(grunt) {
         },
         cssmin: {
             build: {
-                // ½«Òª±»ºÏ²¢µÄ CSS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ CSS æ–‡ä»¶
                 src: [ '<%= concat.css.dest %>' ],
-                // ºÏ²¢ºóµÄ CSS ÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„ CSS æ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './css/<%= pkg.name %>.min.css'
             }
         }
     });
-    grunt.loadNpmTasks("grunt-contrib-concat"); // ºÏ²¢ JS
-    grunt.loadNpmTasks("grunt-contrib-uglify"); // Ñ¹Ëõ JS
-    grunt.loadNpmTasks('grunt-css'); // Ñ¹Ëõ CSS
+    grunt.loadNpmTasks("grunt-contrib-concat"); // åˆå¹¶ JS
+    grunt.loadNpmTasks("grunt-contrib-uglify"); // å‹ç¼© JS
+    grunt.loadNpmTasks('grunt-css'); // å‹ç¼© CSS
     grunt.registerTask("default", ["concat", "uglify", "cssmin"]);
 };
 ```
-### 6. ºÏ²¢js ¡¢ Ö´ĞĞ grunt
-### 7.Ìí¼ÓÔ¤±àÒë Ä£°æ 
+
+### 6. åˆå¹¶js ã€ æ‰§è¡Œ grunt
+
+### 7.æ·»åŠ é¢„ç¼–è¯‘ æ¨¡ç‰ˆ 
+
 ```
 npm install -g tmodjs
 ```
-> githubÏîÄ¿µØÖ·£º https://github.com/aui/tmodjs
 
-### 8.ÈÃ TmodJS ×÷Îª Grunt µÄ²å¼şÊ¹ÓÃ
+> githubé¡¹ç›®åœ°å€ï¼š https://github.com/aui/tmodjs
+
+### 8.è®© TmodJS ä½œä¸º Grunt çš„æ’ä»¶ä½¿ç”¨
+
 ```
 npm install grunt-tmod --save-dev
 ```
-> githubÏîÄ¿µØÖ·£ºhttps://github.com/Jsonzhang/grunt-tmod
 
-### 9.×îÖÕ package.json ÎÄ¼ş
+> githubé¡¹ç›®åœ°å€ï¼šhttps://github.com/Jsonzhang/grunt-tmod
+
+### 9.æœ€ç»ˆ package.json æ–‡ä»¶
+
 ```
 {
     "name": "app",
@@ -101,24 +118,26 @@ npm install grunt-tmod --save-dev
     }
 }
 ```
-### 10.×îÖÕ Gruntfile.js
+
+### 10.æœ€ç»ˆ Gruntfile.js
+
 ```
 module.exports = function(grunt) {
     'use strict';
     grunt.initConfig({
-        // ´Ópackage.json ÎÄ¼ş¶ÁÈëÏîÄ¿ÅäÖÃĞÅÏ¢£¬²¢´æÈëpkg ÊôĞÔÄÚ¡£ÕâÑù¾Í¿ÉÒÔÈÃÎÒÃÇ·ÃÎÊµ½package.jsonÎÄ¼şÖĞÁĞ³öµÄÊôĞÔÁË
+        // ä»package.json æ–‡ä»¶è¯»å…¥é¡¹ç›®é…ç½®ä¿¡æ¯ï¼Œå¹¶å­˜å…¥pkg å±æ€§å†…ã€‚è¿™æ ·å°±å¯ä»¥è®©æˆ‘ä»¬è®¿é—®åˆ°package.jsonæ–‡ä»¶ä¸­åˆ—å‡ºçš„å±æ€§äº†
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             dist: {
-                // ½«Òª±»ºÏ²¢µÄ JS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ JS æ–‡ä»¶
                 src: [ './app/app.js', './app/js/*.js' ],
-                // ºÏ²¢ºóµÄJSÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„JSæ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './js/<%= pkg.name %>.js'
             },
             css: {
-                // ½«Òª±»ºÏ²¢µÄ CSS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ CSS æ–‡ä»¶
                 src: [ './app/css/*.css' ],
-                // ºÏ²¢ºóµÄ CSS ÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„ CSS æ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './css/<%= pkg.name %>.css'
             }
         },
@@ -131,51 +150,51 @@ module.exports = function(grunt) {
         },
         cssmin: {
             build: {
-                // ½«Òª±»ºÏ²¢µÄ CSS ÎÄ¼ş
+                // å°†è¦è¢«åˆå¹¶çš„ CSS æ–‡ä»¶
                 src: [ '<%= concat.css.dest %>' ],
-                // ºÏ²¢ºóµÄ CSS ÎÄ¼şµÄ´æ·ÅÎ»ÖÃ
+                // åˆå¹¶åçš„ CSS æ–‡ä»¶çš„å­˜æ”¾ä½ç½®
                 dest: './css/<%= pkg.name %>.min.css'
             }
         },
         tmod: {
             template: {
-                // Ä£°æÎÄ¼ş
+                // æ¨¡ç‰ˆæ–‡ä»¶
                 src: './tpl/*.html',
-                // Êä³öÂ·¾¶¡£
+                // è¾“å‡ºè·¯å¾„ã€‚
                 dest: './js/template.js',
                 options: {
-                    // Ö¸¶¨Ä£°åµÄ¸ùÄ¿Â¼£¬ÒÔ±ãËõ¶Ì±àÒëºóµÄÄ£°åid·ÃÎÊÂ·¾¶¡£
+                    // æŒ‡å®šæ¨¡æ¿çš„æ ¹ç›®å½•ï¼Œä»¥ä¾¿ç¼©çŸ­ç¼–è¯‘åçš„æ¨¡æ¿idè®¿é—®è·¯å¾„ã€‚
                     base: './tpl',
-                    // Ä£°åÊ¹ÓÃµÄ±àÂë£¨ÔİÊ±Ö»Ö§³Ö utf-8£©
+                    // æ¨¡æ¿ä½¿ç”¨çš„ç¼–ç ï¼ˆæš‚æ—¶åªæ”¯æŒ utf-8ï¼‰
                     charset: "utf-8",
-                    // ¶¨ÒåÄ£°å²ÉÓÃÄÄÖÖÓï·¨¡£¿ÉÑ¡£ºsimple¡¢native
+                    // å®šä¹‰æ¨¡æ¿é‡‡ç”¨å“ªç§è¯­æ³•ã€‚å¯é€‰ï¼šsimpleã€native
                     syntax: "simple",
-                    // ×Ô¶¨Òå¸¨Öú·½·¨Â·¾¶
+                    // è‡ªå®šä¹‰è¾…åŠ©æ–¹æ³•è·¯å¾„
                     helpers: "./app/artTemplate.helper.js",
-                    // ÊÇ·ñ¹ıÂË XSS¡£Èç¹ûºóÌ¨¸ø³öµÄÊı¾İÒÑ¾­½øĞĞÁË XSS ¹ıÂË£¬¾Í¿ÉÒÔ¹Ø±ÕÄ£°åµÄ¹ıÂËÒÔÌáÉıÄ£°åäÖÈ¾Ğ§ÂÊ
+                    // æ˜¯å¦è¿‡æ»¤ XSSã€‚å¦‚æœåå°ç»™å‡ºçš„æ•°æ®å·²ç»è¿›è¡Œäº† XSS è¿‡æ»¤ï¼Œå°±å¯ä»¥å…³é—­æ¨¡æ¿çš„è¿‡æ»¤ä»¥æå‡æ¨¡æ¿æ¸²æŸ“æ•ˆç‡
                     escape: true,
-                    // ÊÇ·ñÑ¹Ëõ HTML ¶àÓà¿Õ°××Ö·û
+                    // æ˜¯å¦å‹ç¼© HTML å¤šä½™ç©ºç™½å­—ç¬¦
                     compress: true,
-                    // Êä³öµÄÄ£¿éÀàĞÍ£¬¿ÉÑ¡£ºdefault¡¢cmd¡¢amd¡¢commonjs
+                    // è¾“å‡ºçš„æ¨¡å—ç±»å‹ï¼Œå¯é€‰ï¼šdefaultã€cmdã€amdã€commonjs
                     type: "default",
-                    // ÉèÖÃÊä³öµÄÔËĞĞÊ±Ãû³Æ
+                    // è®¾ç½®è¾“å‡ºçš„è¿è¡Œæ—¶åç§°
                     runtime: "template.min.js",
-                    // ÊÇ·ñºÏ²¢Ä£°å£¨½öÕë¶ÔÓÚ default ÀàĞÍµÄÄ£¿é£©
+                    // æ˜¯å¦åˆå¹¶æ¨¡æ¿ï¼ˆä»…é’ˆå¯¹äº default ç±»å‹çš„æ¨¡å—ï¼‰
                     combo: true,
-                    // ÊÇ·ñÊä³öÎªÑ¹ËõµÄ¸ñÊ½
+                    // æ˜¯å¦è¾“å‡ºä¸ºå‹ç¼©çš„æ ¼å¼
                     minify: true,
-                    // ÊÇ·ñ¿ªÆô±àÒë»º´æ
+                    // æ˜¯å¦å¼€å¯ç¼–è¯‘ç¼“å­˜
                     cache: false,
-                    // ÊÇ·ñ´òÓ¡ÈÕÖ¾
+                    // æ˜¯å¦æ‰“å°æ—¥å¿—
                     verbose: true
                 } 
             }
         }
     });
-    grunt.loadNpmTasks("grunt-contrib-concat"); // ºÏ²¢ JS
-    grunt.loadNpmTasks("grunt-contrib-uglify"); // Ñ¹Ëõ JS
-    grunt.loadNpmTasks('grunt-css'); // Ñ¹Ëõ CSS
-    grunt.loadNpmTasks('grunt-tmod'); // Ô¤±àÒë Ä£°æ
+    grunt.loadNpmTasks("grunt-contrib-concat"); // åˆå¹¶ JS
+    grunt.loadNpmTasks("grunt-contrib-uglify"); // å‹ç¼© JS
+    grunt.loadNpmTasks('grunt-css'); // å‹ç¼© CSS
+    grunt.loadNpmTasks('grunt-tmod'); // é¢„ç¼–è¯‘ æ¨¡ç‰ˆ
     grunt.registerTask("default", ["concat", "uglify", "cssmin", "tmod"]);
 };
 ```
