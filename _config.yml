@@ -28,3 +28,5 @@ markdown: kramdown
 nickname: Runic # nickname
 qq: 593670711 # you qq
 
+
+theme: jekyll-theme-cayman
